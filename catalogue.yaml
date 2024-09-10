@@ -77,7 +77,6 @@
 
   - name: load catalogue data
     ansible.builtin.command: mongo --host mongodb.daws81s.fun < /app/schema/catalogue.js
-
   - name: restart catalogue
     ansible.builtin.service:
       name: catalogue
