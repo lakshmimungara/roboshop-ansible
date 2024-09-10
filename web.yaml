@@ -38,6 +38,5 @@
     
   - name: restart nginx
     ansible.builtin.service:
-      name: catalogue
+      name: nginx
       state: restarted 
-      enabled: true 
