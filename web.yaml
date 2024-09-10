@@ -1,12 +1,13 @@
-- name: install web component
+- name: Install web component
   hosts: web
   become: yes
   tasks:
-  - name: disable default nodejs
+  - name: disable default nginx
     ansible.builtin.command: dnf module disable nginx -y
 
-  - name: enable nodejs 20
+  - name: enable nginx 1.24
     ansible.builtin.command: dnf module enable nginx:1.24 -y
+
   - name: install nginx
     ansible.builtin.package:
       name: nginx
@@ -33,7 +34,7 @@
       url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
       dest: /tmp/frontend.zip
 
-  - name: extract catalogue artifact
+  - name: extract web artifact
     ansible.builtin.unarchive:
       src: /tmp/frontend.zip
       dest: /usr/share/nginx/html
@@ -42,7 +43,7 @@
   - name: copy nginx.conf
     ansible.builtin.copy:
       src: nginx.conf
-      dest: /etc/nginx/default.d/nginx.conf
+      dest: /etc/nginx/nginx.conf
     
   - name: restart nginx
     ansible.builtin.service:
